@@ -18,11 +18,28 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_p.mk)
 
 # Get non-open-source specific aspects
-$(call inherit-product-if-exists, vendor/xiaomi/cepheus/cepheus-vendor.mk)
+$(call inherit-product-if-exists, vendor/xiaomi/laurel_sprout/laurel_sprout-vendor.mk)
+
+# A/B
+AB_OTA_UPDATER := true
+AB_OTA_PARTITIONS += \
+	boot \
+    dtbo \
+	system
+
+AB_OTA_POSTINSTALL_CONFIG += \
+	RUN_POSTINSTALL_system=true \
+	POSTINSTALL_PATH_system=system/bin/otapreopt_script \
+	FILESYSTEM_TYPE_system=ext4 \
+	POSTINSTALL_OPTIONAL_system=true
+
+PRODUCT_PACKAGES += \
+	otapreopt_script
+
 
 # Boot animation
-TARGET_SCREEN_HEIGHT := 2340
-TARGET_SCREEN_WIDTH := 1080
+TARGET_SCREEN_HEIGHT := 1560
+TARGET_SCREEN_WIDTH := 720
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
@@ -73,7 +90,7 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    lineage.biometrics.fingerprint.inscreen@1.0-service.xiaomi_cepheus
+    lineage.biometrics.fingerprint.inscreen@1.0-service.xiaomi_trinket
 
 # HIDL
 PRODUCT_PACKAGES += \
@@ -102,7 +119,7 @@ PRODUCT_COPY_FILES += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-service.xiaomi_msmnile
+    android.hardware.light@2.0-service.xiaomi_trinket
 
 # LiveDisplay
 PRODUCT_PACKAGES += \
@@ -116,18 +133,6 @@ PRODUCT_COPY_FILES += \
 # Net
 PRODUCT_PACKAGES += \
     netutils-wrapper-1.0
-
-# NFC
-PRODUCT_PACKAGES += \
-    com.android.nfc_extras \
-    com.gsma.services.nfc \
-    com.nxp.nfc.nq \
-    libnqnfc-nci \
-    nqnfcee_access.xml \
-    nqnfcse_access.xml \
-    NQNfcNci \
-    SecureElement \
-    Tag
 
 # Power
 PRODUCT_PACKAGES += \
@@ -163,3 +168,8 @@ PRODUCT_BOOT_JARS += \
 # TextClassifier
 PRODUCT_PACKAGES += \
     textclassifier.bundle1
+
+# Verity
+PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/platform/soc/4804000.ufshc/by-name/system
+PRODUCT_VENDOR_VERITY_PARTITION := /dev/block/platform/soc/4804000.ufshc/by-name/vendor
+$(call inherit-product, build/target/product/verity.mk)
