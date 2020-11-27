@@ -12,31 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$(call inherit-product, device/xiaomi/cepheus/device.mk)
+$(call inherit-product, device/xiaomi/aosp/device.mk)
 
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-CUSTOM_BUILD_TYPE := OFFICIAL
-TARGET_BOOT_ANIMATION_RES := 1080
+TARGET_BOOT_ANIMATION_RES := 720
 TARGET_GAPPS_ARCH := arm64
 
 # Inherit some common PixelExperience stuff.
 $(call inherit-product, vendor/aosp/config/common_full_phone.mk)
 
 # Device identifier. This must come after all inclusions.
-PRODUCT_NAME := aosp_cepheus
-PRODUCT_DEVICE := cepheus
+PRODUCT_NAME := aosp_laurel_sprout
+PRODUCT_DEVICE := laurel_sprout
 PRODUCT_BRAND := Xiaomi
-PRODUCT_MODEL := MI 9
+PRODUCT_MODEL := Mi A3
 PRODUCT_MANUFACTURER := Xiaomi
 
-BUILD_FINGERPRINT := "Xiaomi/cepheus_eea/cepheus:9/PKQ1.181121.001/V10.2.15.0.PFAEUXM:user/release-keys"
+BUILD_FINGERPRINT := "Xiaomi/laurel_sprout_eea/laurel_sprout:9/PKQ1.190416.001/V10.3.7.0.PFQEUXM:user/release-keys"
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="cepheus-user 9 PKQ1.181121.001 V10.2.15.0.PFAEUXM release-keys" \
-    PRODUCT_NAME="cepheus" \
-    TARGET_DEVICE="cepheus"
+    PRIVATE_BUILD_DESC="laurel_sprout-user 9 PKQ1.190416.001 V10.3.7.0.PFQEUXM release-keys" \
+    PRODUCT_NAME="laurel_sprout" \
+    TARGET_DEVICE="laurel_sprout"
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
